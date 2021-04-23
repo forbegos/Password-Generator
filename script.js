@@ -10,7 +10,7 @@ function writePassword() {
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", writePassword());
 
 //Create function generatePasword()
 function generatePassword() {
@@ -125,6 +125,5 @@ function generatePassword() {
 
     console.log(password.self);
   }
+  return password.self;
 }
-
-generatePassword();
