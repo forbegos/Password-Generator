@@ -10,7 +10,7 @@ function writePassword() {
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword());
+generateBtn.addEventListener("click", writePassword);
 
 //Create function generatePasword()
 function generatePassword() {
@@ -26,6 +26,8 @@ function generatePassword() {
 
   // Declare array of letters
   var characters = "abcdefghijklmnopqrstuvwxyz".split("");
+
+  //Declare array of upper-case letters
   var charactersUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
   // Declare array of special characters
@@ -82,48 +84,66 @@ function generatePassword() {
     }
   } while (!password.validLenght);
 
-  console.log("Password lenght: " + password.length);
+  // console.log("Password lenght: " + password.length);
 
   // Prompt for special characters true or false
-  password.specialCharacters = confirm(
-    "Do you wish to include special characters?"
-  );
-  console.log("Special characters: " + password.specialCharacters);
+  var validInput = false;
+  do {
+    password.specialCharacters = confirm(
+      "Do you wish to include special characters?"
+    );
 
-  // Prompt for number characters true or false
-  password.numberCharacters = confirm("Do you wish to include numbers?");
-  console.log("Numbers: " + password.numberCharacters);
+    if (password.specialCharacters) {
+      validInput = true;
+    }
 
-  // Prompt for upperCase characters true or false
-  password.upperCase = confirm("Do you wish to unclude uppercase characters?");
-  console.log("Upper case: " + password.upperCase);
+    // Prompt for number characters true or false
+    password.numberCharacters = confirm("Do you wish to include numbers?");
+
+    if (password.numberCharacters) {
+      validInput = true;
+    }
+
+    // Prompt for upperCase characters true or false
+    password.upperCase = confirm(
+      "Do you wish to unclude uppercase characters?"
+    );
+
+    if (password.upperCase) {
+      validInput = true;
+    }
+
+    if (!validInput) {
+      alert("You need to select at least one character type!");
+    }
+  } while (!validInput);
 
   // Build Password
 
   for (let i = 0; i < password.length; i++) {
     console.log("Index at: " + i);
 
+    // Declare array to contain a pool of options to choose from based on parameter selections
     var poolArray = [characters[generateRandomIndex(characters)]];
 
+    // Fill pool array with valid options based on parameter selections
     if (password.upperCase) {
       poolArray.push(
         charactersUpperCase[generateRandomIndex(charactersUpperCase)]
       );
     }
-
     if (password.specialCharacters) {
       poolArray.push(specialCharacters[generateRandomIndex(specialCharacters)]);
     }
-
     if (password.numberCharacters) {
       poolArray.push(numbers[generateRandomIndex(numbers)]);
     }
+    // console.log("Pool array is: " + poolArray);
 
-    console.log("Pool array is: " + poolArray);
-
+    // Select random option from pool Array to add to the password. This also creates a double randomness which adds to password security
     password.self += poolArray[generateRandomIndex(poolArray)];
-
-    console.log(password.self);
+    // console.log(password.self);
   }
+  // return the password
   return password.self;
 }
