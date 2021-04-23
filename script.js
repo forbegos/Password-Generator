@@ -20,6 +20,7 @@ function generatePassword() {
     length: 8,
     validLenght: true,
     upperCase: true,
+    lowerCase: true,
     specialCharacters: true,
     numberCharacters: true,
   };
@@ -104,7 +105,7 @@ function generatePassword() {
       validInput = true;
     }
 
-    // Prompt for upperCase characters true or false
+    // Prompt for upper case characters true or false
     password.upperCase = confirm(
       "Do you wish to unclude uppercase characters?"
     );
@@ -113,6 +114,15 @@ function generatePassword() {
       validInput = true;
     }
 
+    // Prompt for lower case characters true or false
+    password.lowerCase = confirm(
+      "Do you wish to unclude lowercase characters?"
+    );
+
+    if (password.lowerCase) {
+      validInput = true;
+    }
+    // Prompt user to select at least one character type if none selected
     if (!validInput) {
       alert("You need to select at least one character type!");
     }
@@ -124,7 +134,7 @@ function generatePassword() {
     console.log("Index at: " + i);
 
     // Declare array to contain a pool of options to choose from based on parameter selections
-    var poolArray = [characters[generateRandomIndex(characters)]];
+    var poolArray = [];
 
     // Fill pool array with valid options based on parameter selections
     if (password.upperCase) {
@@ -132,6 +142,11 @@ function generatePassword() {
         charactersUpperCase[generateRandomIndex(charactersUpperCase)]
       );
     }
+
+    if (password.lowerCase) {
+      poolArray.push(characters[generateRandomIndex(characters)]);
+    }
+
     if (password.specialCharacters) {
       poolArray.push(specialCharacters[generateRandomIndex(specialCharacters)]);
     }
