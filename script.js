@@ -1,16 +1,16 @@
-// // Assignment Code
-// var generateBtn = document.querySelector("#generate");
+// Assignment Code
+var generateBtn = document.querySelector("#generate");
 
-// // Write password to the #password input
-// function writePassword() {
-//   var password = generatePassword();
-//   var passwordText = document.querySelector("#password");
+// Write password to the #password input
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
 
-//   passwordText.value = password;
-// }
+  passwordText.value = password;
+}
 
-// // Add event listener to generate button
-// generateBtn.addEventListener("click", writePassword);
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
 
 //Create function generatePasword()
 function generatePassword() {
@@ -18,10 +18,12 @@ function generatePassword() {
   var password = {
     self: "",
     length: 8,
+    validLenght: true,
     upperCase: true,
     specialCharacters: true,
     numberCharacters: true,
   };
+
   // Declare array of letters
   var characters = "abcdefghijklmnopqrstuvwxyz".split("");
   var charactersUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -67,10 +69,19 @@ function generatePassword() {
     return Math.floor(Math.random() * arrayInput.length);
   }
 
-  // Prompt for password length
-  password.length = prompt(
-    "Please enter password length (8 to 128 characters)"
-  );
+  // Prompt for password length and validate lenght is between 8 to 128 characters
+  do {
+    password.length = prompt(
+      "Please enter password length (8 to 128 characters)"
+    );
+    if (password.length >= 8 && password.length <= 128) {
+      password.validLenght = true;
+    } else {
+      alert("Password must be between 8 and 128 characters!");
+      password.validLenght = false;
+    }
+  } while (!password.validLenght);
+
   console.log("Password lenght: " + password.length);
 
   // Prompt for special characters true or false
