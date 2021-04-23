@@ -23,4 +23,4 @@
 
 ## A link to the application below.
 
-https://forbegos.github.io/Password-Generator/
+## https://forbegos.github.io/Password-Generator/
